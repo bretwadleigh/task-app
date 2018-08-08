@@ -1,0 +1,56 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello {{ controller_name }}!{% endblock %}
+
+{% block body %}
+<style>
+    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
+    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
+</style>
+
+<div class="example-wrapper">
+    <h1>Hello {{ controller_name }}! ✅</h1>
+
+   {# templates/default/new.html.twig #}
+    {{ form_start(form) }}
+    {{ form_widget(form) }}
+    {{ form_end(form) }}
+    
+</div>
+{% endblock %}
+{% block footer %}
+        <div class="footer">
+            New Task | 
+            <a href="{{ path('homepage') }}">Home</a> <br>
+            &copy; Arc Intl. NA 2018
+        </div>
+<script>
+setTimeout(setDateToToday, 1000);
+function setDateToToday() {
+        // Set todays date from:
+        // #form_dueDate_year
+        // #form_dueDate_month
+        // #form_dueDate_day
+
+        // get todays date
+        var today = new Date();
+        var year = today.getFullYear();
+        var month = today.getMonth() + 1; // Jan is 0
+        var day = today.getDate();
+
+        console.log("today (m-d-yyyy): ", month + "-" + day + "-" + year);
+
+        var form_day = jQuery('#form_dueDate_day');
+        var form_month = jQuery('#form_dueDate_month');
+        var form_year = jQuery('#form_dueDate_year');
+
+        console.log(form_day);
+        console.log(form_month);
+        console.log(form_year);
+
+        form_day.val(day).change();
+        form_month.val(month).change();
+        form_year.val(year).change();
+}
+</script>
+{% endblock %}

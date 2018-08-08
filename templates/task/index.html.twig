@@ -1,0 +1,74 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello {{ controller_name }}!{% endblock %}
+
+{% block body %}
+
+<div class="example-wrapper">
+    <h1>Hello {{ controller_name }}! ✅</h1>
+
+    {% for msg in app.session.flashBag.get('success') %}
+
+    <div class="add-task-alert alert alert-success alert-dismissible fade show" role="alert">
+    {{ msg }}
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">×</span>
+    </button>
+    </div>
+
+    {% endfor %}
+
+
+   <h2>Current Task List:</h2>
+
+   <table id="taskTable">
+   <tr>
+   <th>Task</th><th>Due Date</th><th>Completed?</th>
+   </tr>
+   <tr><td colspan="3" class="incomplete">ToDo:</td></tr>
+    {% for task in tasks %}
+        {% if task.complete == 0 %}
+            <tr>
+                <td><a href="/show/{{ task.id }}">{{task.task}}</a>&nbsp;</td>
+                <td>{{task.duedate|date('m-d-Y')}}</td>
+                <td align="right">
+                    {% if task.complete == 0 %}
+                    <span class="incomplete">No</span>
+                    {% else %}
+                    <span class="complete">Yes</span>
+                    {% endif%}
+                </td>
+            </tr>
+        {% endif %}
+    {% endfor %}
+    <tr><td colspan="3" class="complete">Completed:</td></tr>
+    {% for task in tasks %}
+        {% if task.complete == 1 %}
+            <tr>
+                <td><a href="/show/{{ task.id }}">{{task.task}}</a>&nbsp;</td>
+                <td>{{task.duedate|date('m-d-Y')}}</td>
+                <td align="right">
+                    {% if task.complete == 0 %}
+                    <span class="incomplete">No</span>
+                    {% else %}
+                    <span class="complete">Yes</span>
+                    {% endif%}
+                </td>
+            </tr>
+        {% endif %}
+     {% endfor %}
+   </table>
+  
+   
+</div>
+
+{% endblock %}
+
+{#Don't nest blocks that are inherited in child templates! #}
+{% block footer %}
+        <div class="footer">
+            <a href="{{ path('newtask') }}">New Task</a> | 
+            Homepage <br>
+            &copy; bretwadleigh.net 2018
+        </div>
+{% endblock %}
